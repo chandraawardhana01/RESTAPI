@@ -11,8 +11,8 @@ const app = express();
 // Connect to DB
 mongoose.connect('mongodb+srv://admin:admin@homework.hin5z.mongodb.net/jadwalin?retryWrites=true&w=majority',
   {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   }, () => {
   console.log('Connect to database success');
 });
