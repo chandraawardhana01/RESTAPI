@@ -1,30 +1,35 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
-import morgan from  'morgan';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
+import router from './router.js';
 
 const app = express();
 
-//connect to mongoDB
-mongoose.connect('mongodb+srv://admin:<kodeamanterbaik>@homework.hin5z.mongodb.net/<jadwalin>?retryWrites=true&w=majority',
-{
-    userNewUrlParser: true,
+// Connect to DB
+mongoose.connect('mongodb+srv://admin:admin@homework.hin5z.mongodb.net/jadwalin?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
     useUnifiedTopology: true,
-}, () => {
-    console.log('Connect to database success');
+  }, () => {
+  console.log('Connect to database success');
 });
 
-
-//Middlewares
+// Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-    res.json({
-        message:'success',
-    });
-})
+// Routes
+app.get('/', (req, res, next) => {
+  res.json({
+    message: 'success',
+  });
+});
 
-//port akses
-app.listen('3000', () => {
-    console.log('App listen to port 3000');
+app.use('/api', router);
+
+app.listen(process.env.PORT, () => {
+  console.log(`App listens to port ${process.env.PORT}`);
 });
