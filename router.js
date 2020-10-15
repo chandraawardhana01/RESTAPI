@@ -87,6 +87,7 @@ router.put('/homeworks/:id', async (req, res) => {
 //@route DELETE /api/homeworks/:id
 router.delete('/homeworks/:id', async (req, res) => {
   const homework = await Homework.findById(req.params.id);
+  
 
   if(homework) {
     await homework.remove();
@@ -102,13 +103,14 @@ router.delete('/homeworks/:id', async (req, res) => {
 
 //@desc Delete a homework all
 //@route DELETE /api/homeworks/
-router.delete('/homeworks/', async (req, res) => {
-    const homework = await Homework.find({});
+router.delete('/homeworks', async (req, res) => {
+    const homework = await Homework.deleteMany();
+    
   
     if(homework) {
-      await homework.remove();
+      //await homework.remove({});
       res.json({
-        message: 'homework removed'
+        message: 'all homework removed'
       })
     } else {
       res.status(404).json({
